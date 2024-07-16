@@ -1,0 +1,218 @@
+#
+# This is kibot configuration.
+#
+# Edit this file to generate more stuff automatically.
+#
+
+kibot:
+  version: 1
+
+preflight:
+  run_erc: true
+  run_drc: true
+  check_zone_fills: true
+  ignore_unconnected: false
+
+filters:
+  - name: lcsc_parts
+    type: generic
+    include_only:
+      - column: 'lcsc#'
+        regex: '^C\d+'
+
+outputs:
+  - name: print_sch
+    type: pdf_sch_print
+    options:
+      output: 'schematics.pdf'
+
+
+  - name: pcb_print
+    type: pcb_print
+    options:
+      output: 'pcb.pdf'
+      force_edge_cuts: true
+      keep_temporal_files: false
+      plot_sheet_reference: false
+      color_theme: '_builtin_default'
+      pages:
+        - sheet: 'Drawings'
+          scaling: 2
+          layers: 
+          - layer: F.Mask
+            color: '#111111'
+          - layer: F.SilkS
+            color: '#FFFFFF'
+          - layer: User.Drawings
+            color: '#444444'
+
+
+  - name: pcb_img_2d_front
+    type: pcbdraw
+    options:
+      output: 'img_pcb_2d_front_bare.jpg'
+      format: jpg
+      dpi: 600
+
+  - name: pcb_img_2d_back
+    type: pcbdraw
+    options:
+      output: 'img_pcb_2d_back_bare.jpg'
+      format: jpg
+      dpi: 600
+      bottom: true
+
+
+  - name: pcb_img_3d_front
+    type: render_3d
+    options:
+      output: 'img_pcb_3d_front.png'
+      orthographic: true
+      download: true
+      solder_mask: '#104020'
+      ray_tracing: true
+      width: 600
+      height: 800
+      view: top
+      zoom: 3
+
+
+  - name: pcb_img_3d_main
+    type: render_3d
+    options:
+      output: 'img_pcb_3d_main.png'
+      download: true
+      rotate_x: 5
+      rotate_z: 15
+      move_x: -1
+      move_y: 1
+      solder_mask: '#104020'
+      orthographic: false
+      ray_tracing: true
+      width: 1000
+      height: 800
+      view: top
+      zoom: 4
+
+
+  - name: step
+    type: step
+    run_by_default: true
+    options:
+      output: 'temp-1w8-pro.step'
+
+
+  - name: ibom
+    type: ibom
+    run_by_default: false
+    options:
+      output: 'ibom.html'
+      no_compression: true
+      highlight_pin1: true
+      layer_view: F
+
+
+  - name: lcsl_bom
+    type: bom
+    options:
+      output: 'bom_lcsc.csv'
+      ref_separator: ','
+      exclude_filter: lcsc_parts
+      columns:
+        - field: 'Quantity Per PCB'
+          name: 'Quantity'
+        - field: 'lcsc#'
+          name: 'LCSC Part Number'
+        - 'Value'
+        - 'Footprint'
+      group_fields: ['lcsc#']
+      csv:
+        hide_pcb_info: true
+        hide_stats_info: true
+        quote_all: true
+
+
+  - name: full_bom
+    type: bom
+    options:
+      output: 'bom.csv'
+      ref_separator: ','
+      csv:
+        hide_pcb_info: true
+        hide_stats_info: true
+        quote_all: true
+
+
+  #
+  # JLC production stuff below
+  #
+  - name: fab_gerbers
+    type: gerber
+    run_by_default: false
+    options: &gerber_options
+      exclude_edge_layer: false
+      exclude_pads_from_silkscreen: false
+      plot_sheet_reference: false
+      plot_footprint_refs: true
+      plot_footprint_values: true
+      force_plot_invisible_refs_vals: false
+      tent_vias: true
+      use_protel_extensions: false
+      create_gerber_job_file: false
+      disable_aperture_macros: true
+      gerber_precision: 4.6
+      use_gerber_x2_attributes: false
+      use_gerber_net_attributes: false
+      line_width: 0.1
+      subtract_mask_from_silk: true
+    layers:
+      - F.Cu
+      - B.Cu
+      - Edge.Cuts
+      - F.SilkS
+      - F.Mask
+      - F.Paste
+      - B.SilkS
+      - B.Mask
+      - B.Paste
+
+  - name: fab_drill
+    type: excellon
+    run_by_default: false
+    options:
+      pth_and_npth_single_file: false
+      pth_id: '-PTH'
+      npth_id: '-NPTH'
+      metric_units: true
+      map: gerber
+      output: "%f%i.%x"
+
+  - name: fab_netlist
+    type: netlist
+    run_by_default: false
+    options:
+      format: ipc
+      output: 'netlist.ipc'
+
+  - name: fab_position
+    type: position
+    run_by_default: false
+    options:
+      format: CSV
+      output: '_pos.csv'
+      separate_files_for_front_and_back: false
+      right_digits: 3
+      pre_transform: _rot_footprint
+      columns:
+        - id: Ref
+          name: 'Designator'
+        - id: PosX
+          name: 'Mid X'
+        - id: PosY
+          name: 'Mid Y'
+        - id: Side
+          name: 'Layer'
+        - id: Rot
+          name: 'Rotation'
+
+
