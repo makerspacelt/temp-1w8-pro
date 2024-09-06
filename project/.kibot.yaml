@@ -83,16 +83,16 @@ outputs:
       output: 'img_pcb_3d_main.png'
       download: true
       rotate_x: 5
-      rotate_z: 15
-      move_x: -1
+      rotate_z: -6
+      move_x: 0
       move_y: 1
       solder_mask: '#104020'
       orthographic: false
       ray_tracing: true
       width: 1000
-      height: 800
+      height: 600
       view: top
-      zoom: 4
+      zoom: 7
 
 
   - name: step

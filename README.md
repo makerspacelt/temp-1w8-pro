@@ -1,7 +1,7 @@
 <a href="LICENSE"><img src="https://badgen.net/badge/Open Source/Hardware" /></a>
 <a href="https://www.kicad.org/"><img src="https://badgen.net/badge/Made with/KiCAD" /></a>
 ---
-<img src="gen/img_pcb_3d_main.png" width=48% align="left" />
+![PCB 3d main](gen/img_pcb_3d_main.png)
 
 
 This device is meant for temperature monitoring with up to 8 thermometers.
@@ -10,9 +10,9 @@ NOTE: This is only a prototype now, so things might not work and everything migh
 
 Basic target features:
 
-* 8x 1-wire interfaces for DS18b20 using XH 3pin 2.54mm pitch connectors
-* 1x user programmable button (can be used to wake up from deep sleep)
-* 128x32 OLED display
+* 8x 1-wire interfaces for DS18b20 using 2.5mm 4p audio jack connectors
+* 2x user programmable buttons (can be used to wake up from deep sleep)
+* 128x64 OLED display
 * Powered via USB-C
 * Compatibility with esphome and Home Assistant
 
