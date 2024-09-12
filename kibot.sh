@@ -24,6 +24,25 @@ fi
 
 
 
+
+# regenerate qr code
+mkdir -p gen
+sch_version="$(grep '\(rev "[^"]*\)"' project/project.kicad_sch | cut -d'"' -f2)"
+echo "http://temp-1w8-pro.makerspace.lt/v${sch_version}" \
+        | qrencode -o - -l L -m1 -d256 -s5 > gen/qr_link.png
+
+# convert png to footprint as bitmap2component cannot be used from cli
+curl -sSL -X POST \
+        -F "module_name=qr" \
+        -F "threshold=127" \
+        -F "scale_factor=0.1" \
+        -F "thefile=@gen/qr_link.png" \
+        -F "submit=Upload" \
+        http://img2mod.wayneandlayne.com/img2mod_process.py \
+        > project/lib/footprint/qr.kicad_mod
+
+
+
 # generate documentation stuff
 run_kibot --out-dir ../gen/
 
