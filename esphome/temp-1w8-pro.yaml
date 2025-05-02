@@ -1,17 +1,21 @@
 substitutions:
   device_name: "temp-1w8-pro"
   friendly_name: "temp-1w8-pro"
+  project_name: "makerspacelt.temp-1w8-pro"
+  version: "v4.0"
 
 esphome:
   name: "${device_name}"
   friendly_name: "$friendly_name"
+  name_add_mac_suffix: true
+  project:
+    name: "${project_name}"
+    version: "${version}"
 
 esp32:
   board: esp32-c3-devkitm-1
 
 api:
-  encryption:
-    key: !secret api_key
 
 captive_portal:
 
@@ -19,15 +23,15 @@ logger:
 
 ota:
   platform: esphome
-  password: !secret ota_password
 
 wifi:
-    networks:
-      - ssid: !secret wifi_ssid
-        password: !secret wifi_password
-    ap:
-      ssid: ${device_name}
-      password: !secret ap_password
+    ap: {}
+
+dashboard_import:
+  package_import_url: github://vaidastal/temp-1w8-pro/esphome/temp-1w8-pro.yaml@esphome
+  import_full_config: true
+
+improv_serial:
 
 mdns:
 
@@ -40,7 +44,9 @@ i2c:
   frequency: 400kHz
 
 font:
-  - file: "fonts/JetBrains-Mono/JetBrainsMono-Regular.ttf"
+  - file:
+      type: gfonts
+      family: Roboto
     id: font1
     size: 16
 
@@ -157,7 +163,7 @@ switch:
 
 # Customize functions of buttons based on your own needs.
 binary_sensor:
-  # Now btn1 and btn2 now just reboots sensors.
+  # Now btn1 and btn2 now just reboot the device.
   - platform: gpio
     id: btn1
     pin:
@@ -173,7 +179,7 @@ binary_sensor:
     on_press:
       - switch.toggle: sw_1w_pwr
 
-# Script that monitors for "nan" values and reboots sensors.
+# Script that monitors for "nan" values and reboots the device.
 script:
   - id: _got_nan
     mode: single
