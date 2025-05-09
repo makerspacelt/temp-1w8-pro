@@ -28,7 +28,7 @@ wifi:
     ap: {}
 
 dashboard_import:
-  package_import_url: github://vaidastal/temp-1w8-pro/esphome/temp-1w8-pro.yaml@esphome
+  package_import_url: github://makerspacelt/temp-1w8-pro/esphome/temp-1w8-pro.yaml@master
   import_full_config: true
 
 improv_serial:
@@ -42,6 +42,7 @@ i2c:
   sda: 8
   scl: 9
   frequency: 400kHz
+  id: i2c_bus
 
 font:
   - file:
