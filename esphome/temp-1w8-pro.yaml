@@ -164,7 +164,7 @@ switch:
 
 # Customize functions of buttons based on your own needs.
 binary_sensor:
-  # Now btn1 and btn2 now just reboot the device.
+  # Now btn1 and btn2 now just reboot the sensors.
   - platform: gpio
     id: btn1
     pin:
@@ -180,7 +180,7 @@ binary_sensor:
     on_press:
       - switch.toggle: sw_1w_pwr
 
-# Script that monitors for "nan" values and reboots the device.
+# Script that monitors for "nan" values and reboots the sensors.
 script:
   - id: _got_nan
     mode: single
