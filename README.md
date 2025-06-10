@@ -1,5 +1,7 @@
 <a href="LICENSE"><img src="https://badgen.net/badge/Open Source/Hardware" /></a>
+<a href="https://certification.oshwa.org/lt000004.html"><img src="https://badgen.net/badge/OSHWA/Certified" /></a>
 <a href="https://www.kicad.org/"><img src="https://badgen.net/badge/Made with/KiCAD" /></a>
+<a href="https://temp-1w8-pro.makerspace.lt/shop"><img src="https://badgen.net/badge/We sell on/tindie/green" /></a>
 ---
 ![PCB 3d main](gen/img_pcb_3d_main.png)
 
