@@ -11,8 +11,6 @@ To set up your device go to https://temp-1w8-pro.makerspace.lt/update
 ## About
 This device is meant for temperature monitoring with up to 8 thermometers.
 
-NOTE: This is only a prototype now, so things might not work and everything might change 
-
 Basic target features:
 
 * 8x 1-wire interfaces for DS18b20 using 2.5mm 4p audio jack connectors
