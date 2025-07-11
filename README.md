@@ -5,7 +5,10 @@
 ---
 ![PCB 3d main](gen/img_pcb_3d_main.png)
 
+## ⚠️ __NEW USERS__
+To set up your device go to https://temp-1w8-pro.makerspace.lt/update
 
+## About
 This device is meant for temperature monitoring with up to 8 thermometers.
 
 NOTE: This is only a prototype now, so things might not work and everything might change 
