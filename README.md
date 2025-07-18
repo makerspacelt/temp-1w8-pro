@@ -7,6 +7,7 @@
 
 ## ⚠️ __NEW USERS__
 To set up your device with latest ESPHome config go to https://temp-1w8-pro.makerspace.lt/update
+
 Latest ESPHome `*.yaml` file could be found in a dedicated software repository of this device: https://github.com/makerspacelt/temp-1w8-pro-sw
 
 ## About
